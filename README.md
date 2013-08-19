@@ -51,9 +51,10 @@ Eco's syntax is simple:
   `property` from the context object passed to `render`.
 * `<%= @helper() %>`: Call the helper method `helper` from the context
   object passed to `render`, then print its escaped return value.
-* `<% @helper -> %>...<% end %>`: Call the helper method `helper` with
+* `<% @helper ->: %>...<% end %>`: Call the helper method `helper` with
   a function as its first argument. When invoked, the function will
   capture and return the content `...` inside the tag.
+  Note: the colon is required when capturing.
 * `<%%` and `%%>` will result in a literal `<%` and `%>` in the
   rendered template, respectively.
 
@@ -166,7 +167,7 @@ would return:
 You can capture blocks of a template by wrapping them in a function
 definition. For example, rendering this template:
 
-    <% div = (contents) => %>
+    <% div = (contents) =>: %>
        <div><%- contents %></div>
     <% end %>
     <%= div "Hello" %>
@@ -181,7 +182,7 @@ argument. Then the `formFor` helper calls this argument to produce a
 value.
 
     template = """
-      <%= @formFor @project, (form) => %>
+      <%= @formFor @project, (form) =>: %>
         <label>Name:</label>
         <%= form.textField "name" %>
       <% end %>
